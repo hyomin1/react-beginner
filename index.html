@@ -8,25 +8,20 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.getElementById("root");
-    const Title = () => (
-      <h3 id="title" onMouseEnter={() => console.log("hi")}>
-        Hello I'm a title
-      </h3>
-    );
-    const Btn = () => (
-      <button
-        style={{ backgroundColor: "tomato" }}
-        onClick={() => console.log("i'm clicked")}
-      >
-        Click me
-      </button>
-    );
-
+    let counter = 0;
+    function countUp() {
+      counter += 1;
+      render(); //다시 리렌더링 하여 update 된 값을 화면에 반영
+    }
+    function render() {
+      ReactDOM.render(<Container />, root);
+    }
     const Container = () => (
       <div>
-        <Title /> <Btn />
+        <h3>Total clicks : {counter}</h3>
+        <button onClick={countUp}>Click me</button>
       </div>
-    );
+    ); //함수여서 처음에 바로 실행되지 않음
 
     ReactDOM.render(<Container />, root);
   </script>
