@@ -1,0 +1,12 @@
+ 리액트 적용
+<script src="http://unpkg.com/react@latest/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@latest/umd/react-dom.production.min.js"></script>
+@latest에는 최신버전을 넣어주면 react 적용 완료
+
+
+react-dom
+react-dom은 React element를 HTML에 두는 역할을 해줌
+
+element생성 방법
+
+  
