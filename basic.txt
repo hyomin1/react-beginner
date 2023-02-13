@@ -7,6 +7,77 @@
 react-dom
 react-dom은 React element를 HTML에 두는 역할을 해줌
 
-element생성 방법
+element생성 방법 -> JSX
 
+Babel : JSX로 적은 코드를 브라우저가 이해하게 변환해줌
+   bable 적용하기 
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
   
+JSX : JS를 확장한 문법, React요소를 만들게 해줌 HTML과 유사한 문법
+    const Title = () => (
+      <h3 id="title" onMouseEnter={() => console.log("hi")}>
+        Hello I'm a title
+      </h3>
+    );   --> <Title/>
+  직접 만드는 요소는 대문자로 적어 줘야함
+
+렌더링 : ReactDOM.render(<Container/> , root);  -> root는 body에 있는 div의 id 
+	Container는 내가 만든 element
+
+
+{}를 넣어주고 변수를 넣어줄수 있음 ex) <h3>Total clicks : {counter}</h3>
+
+페이지가 처음 로드 될때는 함수가 아닌 ReactDOM부분이 가장 먼저 실행됨
+Container가 렌더링됨 이게 실행될때는 counter 값이 0 
+버튼을 클릭해도 리렌더링이 일어나지 않음
+
+
+
+
+useState : 데이터가 저장 되어있는 장소, 리렌더링을 쉽게 할 수 있는 방법,
+	 데이터가(=state) 바뀔때마다(modifier함수를 통해) 컴포넌트를 리렌더링하고 
+	 UI를 refresh함
+
+	구조분해 할당 
+	const x = [1,2,3];
+	const [a,b,c] = x; -> a=1 b=2 c=3
+
+	const [counter , setCounter] = React.useState(0);
+	setCounter가 리렌더링을 해줌
+
+	1. setCounter(counter+1);
+	2. setCounter((current) => current+1); //혹시 모를 오류에 대비할 수 있는 방법
+	
+input : input의 값을 알아내어 변경하고싶을때 onChange사용 value ={state}
+         onChange안의 함수를 만든다 함수내에 event.target.value하면 값을 추적할수 있음
+
+
+props : 부모 컴포넌트로부터 자식 컴포넌트에 
+          데이터를 보낼 수 있게 해주는 방법
+          prop으로 함수도 보낼 수 있다 보낸 prop이 자동적으로 return으로
+	들어가지 않는다. 내가 직접 사용을 해줘야함
+          function Btn({text, big}) {
+              return <button>{text}</button>
+         function App() {
+              return <Btn text="Save changes" big={true}/>
+                       <Btn text="Continue" big={false}/>
+}	
+memo :  부모 컴포넌트의 state에 변경이 있을시 자식 컴포넌트는 모두 
+    	rerender된다. 이것을 막기 위해 memo를 사용할 수 있음
+
+	const MemorizedBtn = React.memo(Btn);
+
+          <MemorizedBtn text={value} changeValue={changeValue} />
+          <MemorizedBtn text="Continue" big={false} /> 
+    --> Continue버튼은 state변경이 이루어지지 않기때문에 처음에 그려지고
+         그 다음 상태 변경이 있을때는 render되지 않음
+	
+Prop Types : prop을 잘 못넘겨도 확인할 수 없는 문제점이 있음
+	    이 문제를 해결하기위해 PropTypes라는 모듈의 도움을 받음
+
+Btn.propTypes = {
+      text: PropTypes.string.isRequired, //isRequired는 반드시 있어야하는 prop을 알려줌,
+      fontSize: PropTypes.number,
+    };
+    
